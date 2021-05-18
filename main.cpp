@@ -1,6 +1,5 @@
 /* 
 Kelompok 3 :
-
  Aulia Rahmanita 140810200004
  Nawang Ilmi Adzani 140810200014
  Pujo Prayogo 1408102000038
@@ -59,7 +58,7 @@ if (First== nullptr) {
 	}
 }
 
-void InputPengeluaran(pKeluar& pBaru){
+void InputPengeluaran(pKeluar pBaru){
 pBaru = new keluar;
     std::cout<<"Masukkan Uang yang masuk: " ; std::cin>>pBaru->uangkeluar;
     pBaru->nextKeluar = nullptr;
@@ -184,16 +183,64 @@ void TampilkanPengeluaran(listTanggal& First){
 void Total (){
 
 }
-void RatarataPemasukan(){}
+void RatarataPemasukan(listTanggal First){
+    int count = 0;
+    int sum = 0;
+    float avg = 0.0;
+    pTanggal& cur = First;
 
-void RatarataPengeluaran(){}
+    while (cur != nullptr) {
+        count++;
+        sum += cur->firstMasuk->uangmasuk;
+        cur = cur->nextTgl;
+    }
 
-void MaxMasuk(){}
+    avg = sum / count;
+    std::cout << "Rata-rata Pemasukan adalah : " << avg << "\n\n";
+}
 
-void MaxKeluar(){}
+void RatarataPengeluaran(listTanggal First){
+    int count = 0;
+    int sum = 0;
+    float avg = 0.0;
+    pTanggal& cur = First;
+
+    while (cur != nullptr) {
+        count++;
+        sum += cur->firstKeluar->uangkeluar;
+        cur = cur->nextTgl;
+    }
+
+    avg = sum / count;
+    std::cout << "Rata-rata Pemasukan adalah : " << avg << "\n\n";
+}
+
+void MaxMasuk(listTanggal First){
+    pTanggal& cur = First;
+    int max = 0; 
+
+    while (cur != nullptr) { 
+        if (max < cur->firstMasuk->uangmasuk) 
+        max = cur->firstMasuk->uangmasuk; 
+        cur = cur->nextTgl; 
+    } 
+    std::cout << "Pemasukan Terbanyak sebesar : " << max;
+}
+
+void MaxKeluar(listTanggal First){
+    pTanggal& cur = First;
+    int max = 0; 
+  
+    while (cur->nextTgl != nullptr) { 
+        if (max < cur->firstKeluar->uangkeluar) 
+        max = cur->firstKeluar->uangkeluar; 
+        cur = cur->nextTgl; 
+    } 
+    std::cout << "Pengeluaran Terbanyak sebesar : " << max;
+}
 
 
-void DataKeuangan(){
+void DataKeuangan(listTanggal First){
     int pilih;
     std::cout << "=== Data Keuangan ===" << "\n";
     std::cout << "1. Rata-rata Pemasukkan\n";
@@ -206,16 +253,16 @@ void DataKeuangan(){
 
     switch(pilih){
         case 1 :
-            RatarataPemasukan();
+            RatarataPemasukan(First);
             break;
         case 2 :
-            RatarataPengeluaran();
+            RatarataPengeluaran(First);
             break;
         case 3 :
-            MaxMasuk();
+            MaxMasuk(First);
             break;
         case 4 :
-            MaxKeluar();
+            MaxKeluar(First);
             break;
         case 5:
             break;
@@ -276,7 +323,7 @@ int main(){
         ;
         break;
      case 7:
-        DataKeuangan();
+        DataKeuangan(head);
         break;
     default : 
         std::cout << "Pilihan tidak tersedia!";
