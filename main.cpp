@@ -1,6 +1,5 @@
 /* 
 Kelompok 3 :
-
  Aulia Rahmanita 140810200004
  Nawang Ilmi Adzani 140810200014
  Pujo Prayogo 1408102000038
@@ -59,7 +58,7 @@ if (First== nullptr) {
 	}
 }
 
-void InputPengeluaran(pKeluar& pBaru){
+void InputPengeluaran(pKeluar pBaru){
 pBaru = new keluar;
     std::cout<<"Masukkan Uang yang masuk: " ; std::cin>>pBaru->uangkeluar;
     pBaru->nextKeluar = nullptr;
@@ -184,16 +183,38 @@ void TampilkanPengeluaran(listTanggal& First){
 void Total (){
 
 }
-void RatarataPemasukan(){}
+void RatarataPemasukan(listTanggal First){
+    
+}
 
-void RatarataPengeluaran(){}
+void RatarataPengeluaran(listTanggal First){
+    
+}
 
-void MaxMasuk(){}
+void MaxMasuk(listTanggal First){
+    int max = 0; 
+  
+    while (First->nextTgl != nullptr) { 
+        if (max < First->firstMasuk->uangmasuk) 
+        max = First->firstMasuk->uangmasuk; 
+        First->nextTgl = First->nextTgl; 
+    } 
+    std::cout << max;
+}
 
-void MaxKeluar(){}
+void MaxKeluar(listTanggal First){
+    int max = 0; 
+  
+    while (First->nextTgl != nullptr) { 
+        if (max < First->firstKeluar->uangkeluar) 
+        max = First->firstKeluar->uangkeluar; 
+        First = First->nextTgl; 
+    } 
+    std::cout << max;
+}
 
 
-void DataKeuangan(){
+void DataKeuangan(listTanggal First){
     int pilih;
     std::cout << "=== Data Keuangan ===" << "\n";
     std::cout << "1. Rata-rata Pemasukkan\n";
@@ -206,16 +227,16 @@ void DataKeuangan(){
 
     switch(pilih){
         case 1 :
-            RatarataPemasukan();
+            RatarataPemasukan(First);
             break;
         case 2 :
-            RatarataPengeluaran();
+            RatarataPengeluaran(First);
             break;
         case 3 :
-            MaxMasuk();
+            MaxMasuk(First);
             break;
         case 4 :
-            MaxKeluar();
+            MaxKeluar(First);
             break;
         case 5:
             break;
@@ -276,7 +297,7 @@ int main(){
         ;
         break;
      case 7:
-        DataKeuangan();
+        DataKeuangan(head);
         break;
     default : 
         std::cout << "Pilihan tidak tersedia!";
